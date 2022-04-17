@@ -1,0 +1,235 @@
+import javax.swing.JFrame;     //making classes available
+import javax.swing.JLabel;    
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
+import javax.swing.JTextField;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JTextArea;
+import java.awt.Color;
+import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JOptionPane;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class CocktailSelection extends JFrame implements ActionListener{
+  
+  private JLabel cocktailLabel, portionLabel, onePortionLabel, twoPortionLabel, threePortionLabel, nameLabel, 
+                 placeHolderLabel, commentOptionLabel, userExperienceLabel, takeOutOption, glassOptionLabel,
+                 pickUpTime, ageRestrictionLabel;    //declaring the objects, thus making the object visible
+  private JPanel northPanel, southPanel, westPanel1, westPanel2, centerPanel, eastPanel1, eastPanel2;
+  private JButton getRecipeButton, saveRecipeButton, clearButton;
+  private JCheckBox iceOption, noIceOption;
+  private JComboBox cocktailOptionBox, toGoOptionBox, pickUpOptionBox;
+  private JRadioButton onePortionOption, twoPortionOption, threePortionOption, poorExperienceRate, averageExperienceRate, greatExperienceRate, 
+                       chilledGlass, regularGlass, yesAgeOption, noAgeOption;
+  private ButtonGroup portionOptionGroup, experienceRateGroup, glassOptionGroup, ageOptionGroup;
+  private JTextArea opinionBox;
+  private ImageIcon onePortionImage, twoPortionImage, threePortionImage;
+  private JTextField liquorPreferenceTextField;
+  
+  public CocktailSelection(){
+    super("Cocktail Recipes");  
+    
+    //north panel
+    String cocktailOptions [] = {"--Pick a Cocktail--", "Cosmopolitan", "Manhattan", "Martini"};
+    cocktailLabel = new JLabel("Select a Cocktail: ");    //initializing the object to make ir usable
+    cocktailOptionBox = new JComboBox(cocktailOptions);
+    northPanel = new JPanel();
+    northPanel.add(cocktailLabel);
+    northPanel.add(cocktailOptionBox);
+    northPanel.setBackground(Color.green);
+    add(northPanel, BorderLayout.NORTH);
+    
+    //center panel
+    JLabel portionLabel= new JLabel("Select the Number of the Cocktail:");
+    onePortionOption = new JRadioButton("");
+    twoPortionOption = new JRadioButton("");
+    threePortionOption = new JRadioButton("");
+    portionOptionGroup = new ButtonGroup();
+    portionOptionGroup.add(onePortionOption);
+    portionOptionGroup.add(twoPortionOption);
+    portionOptionGroup.add(threePortionOption);
+    onePortionImage = new ImageIcon("one.png");
+    onePortionLabel = new JLabel(onePortionImage);
+    twoPortionImage = new ImageIcon("two.png");
+    twoPortionLabel = new JLabel(twoPortionImage);
+    threePortionImage = new ImageIcon("three.png");
+    threePortionLabel = new JLabel(threePortionImage);
+    glassOptionLabel = new JLabel("Select the type of glass:");
+    chilledGlass = new JRadioButton("Chilled Glass");
+    regularGlass = new JRadioButton("Regular Glass");
+    glassOptionGroup = new ButtonGroup();
+    glassOptionGroup.add(chilledGlass);
+    glassOptionGroup.add(regularGlass);
+    centerPanel = new JPanel();
+    centerPanel.add(portionLabel);
+    centerPanel.add(onePortionOption);
+    centerPanel.add(onePortionLabel);
+    centerPanel.add(twoPortionOption);
+    centerPanel.add(twoPortionLabel);
+    centerPanel.add(threePortionOption);
+    centerPanel.add(threePortionLabel);
+    centerPanel.add(glassOptionLabel);
+    centerPanel.add(chilledGlass);
+    centerPanel.add(regularGlass);
+    add(centerPanel, BorderLayout.CENTER);
+    
+    //west panel
+     nameLabel = new JLabel("The preferred liquor is: ");
+     placeHolderLabel = new JLabel("");
+     liquorPreferenceTextField = new JTextField(15);
+     iceOption = new JCheckBox("Cocktail with ice");
+     noIceOption = new JCheckBox("Cocktail without ice");
+     String drinkConsumptionOption [] = {"--Pick to Go or for Here--", "To Go", "For Here"};
+     takeOutOption = new JLabel("Get drink to go or for here:");
+     toGoOptionBox = new JComboBox(drinkConsumptionOption);
+     pickUpTime = new JLabel("Set up pickup time:");
+     String pickUpTimeOptions [] = {"--Select pick up time--", "6:00PM", "7:00PM"};
+     pickUpOptionBox = new JComboBox(pickUpTimeOptions);
+     ageRestrictionLabel = new JLabel("Are you 21 or more?");
+     yesAgeOption = new JRadioButton("Yes");
+     noAgeOption = new JRadioButton("No");
+     ageOptionGroup = new ButtonGroup();
+     ageOptionGroup.add(yesAgeOption);
+     ageOptionGroup.add(noAgeOption);
+     westPanel1 = new JPanel();
+     westPanel1.setLayout(new GridLayout(15, 4));
+     westPanel1.add(nameLabel);
+     westPanel1.add(liquorPreferenceTextField);
+     westPanel1.add(iceOption);
+     westPanel1.add(noIceOption);
+     westPanel1.add(takeOutOption);
+     westPanel1.add(toGoOptionBox);
+     westPanel1.add(pickUpTime);
+     westPanel1.add(pickUpOptionBox);
+     westPanel1.add(ageRestrictionLabel);
+     westPanel1.add(yesAgeOption);
+     westPanel1.add(noAgeOption);
+     westPanel2 = new JPanel();
+     westPanel2.add(westPanel1);
+     add(westPanel2, BorderLayout.WEST);
+     
+    //east panel
+    commentOptionLabel = new JLabel("Leave notes about the drink here: ");
+    opinionBox = new JTextArea(10, 15);
+    userExperienceLabel = new JLabel("Please rate your experience with the user interface: ");
+    poorExperienceRate = new JRadioButton("Poor");
+    averageExperienceRate = new JRadioButton("Average");
+    greatExperienceRate = new JRadioButton("Great");
+    experienceRateGroup = new ButtonGroup();
+    experienceRateGroup.add(poorExperienceRate);
+    experienceRateGroup.add(averageExperienceRate);
+    experienceRateGroup.add(greatExperienceRate);
+    eastPanel1 = new JPanel();
+    eastPanel1.setLayout(new GridLayout(3, 3));
+    eastPanel1.add(commentOptionLabel);
+    eastPanel1.add(opinionBox);
+    eastPanel1.add(userExperienceLabel);
+    eastPanel1.add(poorExperienceRate);
+    eastPanel1.add(averageExperienceRate);
+    eastPanel1.add(greatExperienceRate);
+    eastPanel2 = new JPanel();
+    eastPanel2.add(eastPanel1);
+    add(eastPanel2, BorderLayout.EAST);
+    
+    //south panel
+    getRecipeButton = new JButton("Get Cocktail Recipe");
+    getRecipeButton.addActionListener(this);
+    saveRecipeButton = new JButton("Save Cocktail Recipe");
+    saveRecipeButton.addActionListener(this);
+    clearButton = new JButton("Clear");
+    clearButton.addActionListener(this);
+    southPanel = new JPanel();
+    southPanel.add(getRecipeButton);
+    southPanel.add(saveRecipeButton);
+    southPanel.add(clearButton);
+    add(southPanel, BorderLayout.SOUTH);
+    
+    setSize(1370, 600);
+    setVisible(true);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  }
+   public void actionPerformed(ActionEvent event){
+    String cosmopolitanRecipe = "Ingredients: Vodka, Tripple Sec, Lime Juice, Cranberry Juice";
+    String manhattanRecipe = "Ingredients: Bourboun, Sweet Vermouth, Bitters";
+    String martiniRecipe = "Ingredients: Gin, Dry Vermoth, Orange Bitters";
+    
+    if(event.getSource() == getRecipeButton){
+      String cocktailOption = cocktailOptionBox.getSelectedItem().toString();
+      if (cocktailOption.equals("Cosmopolitan")){
+        JOptionPane.showMessageDialog(null, cosmopolitanRecipe);
+      }
+      else if (cocktailOption.equals("Manhattan")){
+        JOptionPane.showMessageDialog(null, manhattanRecipe);
+    }
+      else if (cocktailOption.equals("Martini")){
+        JOptionPane.showMessageDialog(null, martiniRecipe);
+      }
+   }
+    else if(event.getSource() == saveRecipeButton){
+     String selectedCocktail = cocktailOptionBox.getSelectedItem().toString();
+     String liquorPreference = liquorPreferenceTextField.getText();
+     String opinion = opinionBox.getText();
+     String portion = "";
+     if (onePortionOption.isSelected()){
+       portion = "One drink";
+     }
+     else if (twoPortionOption.isSelected()){
+       portion = "Two drinks";
+     }
+     else if (threePortionOption.isSelected()){
+       portion = "Three drinks";
+     }
+     String ice;
+     String noIce;
+     if (iceOption.isSelected()){
+       ice = "Yes";
+     }
+     else {
+       ice = "No";
+     }  
+     String fileOutput = "Selected Cocktail: " + selectedCocktail + 
+                           "\nNumber of Cocktails wanted: " + portion +
+                            "\nLiquor preference: " + liquorPreference +
+                             "\nDid you want the drink with ice: " + ice +
+                                "\nOpinion: " + opinion;
+     JOptionPane.showMessageDialog(null, fileOutput);
+     File myFile = new File("cocktailRecipe.txt");
+     try{
+       FileWriter writer = new FileWriter(myFile);
+       writer.write(fileOutput);
+       writer.close();
+     }
+    catch(IOException e){
+      e.printStackTrace();
+    }
+    }
+    else if(event.getSource() == clearButton){
+      cocktailOptionBox.setSelectedIndex(0);
+      portionOptionGroup.clearSelection();
+      liquorPreferenceTextField.setText("");
+      opinionBox.setText("");
+      iceOption.setSelected(false);
+      noIceOption.setSelected(false);
+      ageOptionGroup.clearSelection();
+      experienceRateGroup.clearSelection();
+      glassOptionGroup.clearSelection();
+      pickUpOptionBox.setSelectedIndex(0);
+      toGoOptionBox.setSelectedIndex(0);
+    }
+   }
+   
+   public static void main (String args[]){
+    CocktailSelection g = new CocktailSelection();
+   
+  }
+}
