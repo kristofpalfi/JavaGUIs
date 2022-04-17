@@ -1,0 +1,83 @@
+import javax.swing.JFrame;
+import javax.swing.JLabel;    //import make the class available
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
+import javax.swing.JTextField;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JTextArea;
+import java.awt.Color;
+
+public class PizzaOrder1 extends JFrame{
+  private JPanel northPanel,northPanel1, northPanel2,northPanel3, centerPanel, southPanel;
+  private JComboBox topingBox;
+  private JLabel sizeLabel, specialRequestLabel;
+  private JRadioButton smallButton, mediumButton, largeButton;
+  private ButtonGroup sizeGroup;
+  private JTextArea specialRequestArea;
+  private JButton orderButton, clearButton, stockingButton;
+  
+  
+   
+  public PizzaOrder1(){
+    super("Pizza Order");  //has to be first in line
+    
+    //northPanel
+    String topingOptions [] = {"--Select Topping--", "pepperoni", "sausage", "veggie"};
+    topingBox = new JComboBox(topingOptions);
+    sizeLabel = new JLabel("Size: ");
+    smallButton = new JRadioButton("Small");
+    mediumButton = new JRadioButton("Medium");
+    largeButton = new JRadioButton("Large");
+    sizeGroup = new ButtonGroup();
+    sizeGroup.add(smallButton);
+    sizeGroup.add(mediumButton);
+    sizeGroup.add(largeButton);
+    northPanel = new JPanel();
+    northPanel1 = new JPanel();
+    northPanel.add(topingBox);
+    northPanel1.add(sizeLabel);
+    northPanel1.add(smallButton);
+    northPanel1.add(mediumButton);
+    northPanel1.add(largeButton);
+    northPanel2 = new JPanel();
+    northPanel2.setLayout(new GridLayout(2, 1));
+    northPanel2.add(northPanel);
+    northPanel2.add(northPanel1);
+    northPanel3 = new JPanel();
+    northPanel3.add(northPanel2);
+    add(northPanel3, BorderLayout.NORTH);
+    
+    //center panel
+    specialRequestLabel = new JLabel("Special Request:");
+    specialRequestArea = new JTextArea(7, 22);
+    centerPanel = new JPanel();
+    centerPanel.add(specialRequestLabel);
+    centerPanel.add(specialRequestArea);
+    add(centerPanel, BorderLayout.CENTER);
+    
+    //south panel
+    orderButton = new JButton("Order");
+    clearButton = new JButton("Clear");
+    stockingButton = new JButton("Stocking Pizza Dough");
+    southPanel = new JPanel();
+    southPanel.add(orderButton);
+    southPanel.add(clearButton);
+    southPanel.add(stockingButton);
+    add(southPanel, BorderLayout.SOUTH);
+      
+    
+    setSize(600,400);
+    setVisible(true);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  }
+  public static void main (String args[]){
+    PizzaOrder1 p = new PizzaOrder1();
+   
+  }
+}
