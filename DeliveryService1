@@ -1,0 +1,77 @@
+//importing packages to build the GUI
+import javax.swing.JFrame;
+import javax.swing.JLabel; 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import javax.swing.JTextField;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
+
+public class DeliveryService1 extends JFrame{
+  
+  //declaring objects
+  private JLabel weightLabel, deliveryLabel;
+  private JTextField weightTextField;
+  private JPanel northPanel, westPanel, westPanel1,  westPanel2, westPanel3, southPanel, centerPanel, centerPanel2;
+  private JRadioButton localDelivery, longDistanceDelivery;
+  private ButtonGroup deliveryGroup;
+  private JCheckBox insuranceOption;
+  private JButton goButton, resetButton;
+  
+  
+  //constructor
+  public DeliveryService1(){
+    //sending to the constructor of the super class
+    super("Delivery Service");
+    //initializing objects
+    //north panel
+    weightLabel = new JLabel("Enter weight in pounds:");
+    weightTextField = new JTextField(7);
+    northPanel = new JPanel();
+    northPanel.add(weightLabel);
+    northPanel.add(weightTextField);
+    add(northPanel, BorderLayout.NORTH);
+    
+    //west panel
+    deliveryLabel = new JLabel("Type of Delivery:");
+    localDelivery = new JRadioButton("Local");
+    longDistanceDelivery = new JRadioButton("Long Distance");
+    deliveryGroup = new ButtonGroup();
+    deliveryGroup.add(localDelivery);
+    deliveryGroup.add(longDistanceDelivery);
+    westPanel = new JPanel();
+    westPanel.add(deliveryLabel);
+    westPanel.add(localDelivery);
+    westPanel.add(longDistanceDelivery);
+    westPanel1 = new JPanel();
+    insuranceOption = new JCheckBox("Insurance");
+    westPanel1.add(insuranceOption);
+    westPanel2 = new JPanel();
+    westPanel2.setLayout(new GridLayout(1, 1));
+    westPanel2.add(westPanel);
+    westPanel2.add(westPanel1);
+    add(westPanel2, BorderLayout.WEST);
+    
+    //south panel
+    goButton = new JButton("Go");
+    resetButton = new JButton("Reset");
+    southPanel = new JPanel();
+    southPanel.add(goButton);
+    southPanel.add(resetButton);
+    add(southPanel, BorderLayout.SOUTH);
+    
+    
+    setSize(500,300);
+    setVisible(true);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    
+    
+    
+  }
+  public static void main (String args[]){
+    DeliveryService1 d = new DeliveryService1();
+}
+}
